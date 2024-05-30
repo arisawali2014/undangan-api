@@ -16,9 +16,7 @@ class WelcomeController extends Controller
     }
     public function __invoke(): \Core\View\View
     {
-        return $this->view('welcome', [
-            'data' => 'PHP Framework'
-        ]);
+        return $this->view('welcome');
     }
 
     public function saweria_leaderboard(Request $request): JsonResponse
