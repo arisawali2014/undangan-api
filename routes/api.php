@@ -3,6 +3,7 @@
 use App\Controllers\Api\AuthController;
 use App\Controllers\Api\CommentController;
 use App\Controllers\Api\DashboardController;
+use App\Controllers\WelcomeController;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\DashboardMiddleware;
 use Core\Routing\Route;
@@ -12,10 +13,14 @@ use Core\Routing\Route;
  * keep simple yeah.
  */
 
+
+
+
 Route::prefix('/session')->group(function () {
     Route::post('/', [AuthController::class, 'login']);
     Route::options('/'); // Preflight request [/api/session]
 });
+
 
 Route::middleware(AuthMiddleware::class)->group(function () {
 
@@ -38,6 +43,10 @@ Route::middleware(AuthMiddleware::class)->group(function () {
     Route::get('/config', [DashboardController::class, 'config']);
     Route::options('/config'); // Preflight request [/api/config]
 
+    Route::prefix('/saweria')->group(function () {
+        Route::get('/leaderboard', [WelcomeController::class, 'saweria_leaderboard']);
+        Route::options('/'); // Preflight request [/api/comment]
+    });
     // Comment
     Route::prefix('/comment')->group(function () {
 
